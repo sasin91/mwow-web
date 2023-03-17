@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  output = "../node_modules/@acme/tc_auth_db/prisma/client"
 }
 
 datasource db {

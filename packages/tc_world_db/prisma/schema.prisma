@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  output = "../node_modules/@acme/tc_world_db/prisma/client"
 }
 
 datasource db {
@@ -161,9 +162,9 @@ model areatrigger_tavern {
 model areatrigger_teleport {
   ID        Int     @id @default(0) @db.UnsignedInt
   PortLocID Int     @default(0) @db.UnsignedInt
-  Name      String? @db.MediumText
+  Name      String? @db.MediumText()
 
-  @@index([Name], map: "name")
+  @@index([ID], map: "ID")
 }
 
 model areatrigger_template {

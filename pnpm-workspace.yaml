@@ -4,4 +4,7 @@ packages:
   - packages/api
   - packages/auth
   - packages/db
+  - packages/tc_auth_db
+  - packages/tc_characters_db
+  - packages/tc_world_db
   - packages/config/*
