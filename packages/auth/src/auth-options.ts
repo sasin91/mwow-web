@@ -1,5 +1,5 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { type DefaultSession, type NextAuthOptions } from "next-auth";
+import { User, type DefaultSession, type NextAuthOptions } from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
 import CredentialsProvider from "next-auth/providers/credentials";
 
@@ -41,7 +41,7 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
   },
-  adapter: PrismaAdapter(prisma),
+    adapter: PrismaAdapter(prisma),
   providers: [
     DiscordProvider({
       clientId: process.env.DISCORD_CLIENT_ID as string,
@@ -59,13 +59,29 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials, req) {
-        prisma.Account.
-        // Add logic here to look up the user from the credentials supplied
-        const user = { id: "1", name: "J Smith", email: "jsmith@example.com" }
+          console.log(credentials)
+          const account = await prisma.account.findFirst({
+              where: {
+                  username: credentials?.username
+              }
+          })
 
-        if (user) {
-          // Any object returned will be saved in `user` property of the JWT
-          return user
+          if (account) {
+              const salt = generateSalt();
+              const verifier = calculateSRP6Verifier(account.username, credentials?.password, salt);
+              if (verifier === account.verifier) {
+                // Any object returned will be saved in `user` property of the JWT
+                  const user: User = {
+                      id: verifier,
+                      name: account.username,
+                      email: account.email,
+                      image: 'https://static.wikia.nocookie.net/wowpedia/images/b/b3/Human_male.gif/revision/latest?cb=20090605181233'
+                  }
+
+                  return user
+              }
+
+              throw new Error("Invalid username or password")
         } else {
           // If you return null then an error will be displayed advising the user to check their details.
           return null

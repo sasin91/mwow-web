@@ -6,6 +6,7 @@ importers:
     specifiers:
       '@ianvs/prettier-plugin-sort-imports': ^3.7.1
       '@manypkg/cli': ^0.20.0
+      '@trinity-flux/srp6': ^1.0.1
       '@types/prettier': ^2.7.2
       dotenv-cli: ^7.0.0
       eslint: ^8.34.0
@@ -17,6 +18,7 @@ importers:
     dependencies:
       '@ianvs/prettier-plugin-sort-imports': 3.7.1_prettier@2.8.4
       '@manypkg/cli': 0.20.0
+      '@trinity-flux/srp6': 1.0.1
       '@types/prettier': 2.7.2
       dotenv-cli: 7.0.0
       eslint: 8.34.0
