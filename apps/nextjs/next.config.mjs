@@ -8,11 +8,8 @@ import path from "path";
 
 /** @type {import("next").NextConfig} */
 const config = {
-    experimental: {
-        outputFileTracingRoot: path.join(__dirname, '../../'),
-    },
     /** Enables hot reloading for local packages without a build step */
-    transpilePackages: ["@acme/api", "@acme/auth", "@acme/db"],
+    transpilePackages: ["@acme/api", "@acme/auth", "@acme/db", "@acme/trinitycore"],
     /** We already do linting and typechecking as separate tasks in CI */
     eslint: { ignoreDuringBuilds: !!process.env.CI },
     typescript: { ignoreBuildErrors: !!process.env.CI },
