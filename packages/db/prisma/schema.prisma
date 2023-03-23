@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-    provider = "mysql"
+    provider = "sqlite"
     url      = env("DATABASE_URL")
 }
 
@@ -54,6 +54,13 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
+    password      Password?
+}
+
+model Password {
+    hash   String
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+    userId String @unique
 }
 
 model VerificationToken {

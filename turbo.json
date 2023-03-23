@@ -47,6 +47,7 @@
     },
     "globalEnv": [
         "CI",
+        "TRINITYCORE_SOAP_URL",
         "DATABASE_URL",
         "DISCORD_CLIENT_ID",
         "DISCORD_CLIENT_SECRET",
