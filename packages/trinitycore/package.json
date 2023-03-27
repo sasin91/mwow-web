@@ -8,7 +8,7 @@
         "clean": "rm -rf .turbo node_modules"
     },
     "dependencies": {
-        "soap": "^1.0.0"
+        "@xmldom/xmldom": "^0.8.6"
     },
     "devDependencies": {
         "typescript": "^4.9.5"

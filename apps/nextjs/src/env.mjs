@@ -6,6 +6,8 @@ import { z } from "zod";
  */
 const server = z.object({
     TRINITYCORE_SOAP_URL: z.string().url(),
+    TRINITYCORE_USERNAME: z.string(),
+    TRINITYCORE_PASSWORD: z.string(),
     DATABASE_URL: z.string().url(),
     NODE_ENV: z.enum(["development", "test", "production"]),
     NEXTAUTH_SECRET:
@@ -40,6 +42,8 @@ const client = z.object({
  */
 const processEnv = {
     TRINITYCORE_SOAP_URL: process.env.TRINITYCORE_SOAP_URL,
+    TRINITYCORE_USERNAME: process.env.TRINITYCORE_USERNAME,
+    TRINITYCORE_PASSWORD: process.env.TRINITYCORE_PASSWORD,
     DATABASE_URL: process.env.DATABASE_URL,
     NODE_ENV: process.env.NODE_ENV,
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,

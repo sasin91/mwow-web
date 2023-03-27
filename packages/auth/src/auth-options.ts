@@ -1,3 +1,4 @@
+import { executeCommand } from './../../trinitycore/index';
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { User, type DefaultSession, type NextAuthOptions } from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
@@ -47,6 +48,23 @@ export const authOptions: NextAuthOptions = {
         DiscordProvider({
             clientId: process.env.DISCORD_CLIENT_ID as string,
             clientSecret: process.env.DISCORD_CLIENT_SECRET as string,
+        }),
+        CredentialsProvider({
+            name: "Game Account",
+            credentials: {
+                username: { label: "Username", type: "text" },
+                password: { label: "Password", type: "password" },
+            },
+            async authorize(credentials, req) {
+                const result = await executeCommand(`baninfo account ${credentials!.username}`);
+                console.log(result);
+
+                if (result === `Account ${credentials!.username.toUpperCase()} has never been banned.`) {
+                    return true;
+                }
+
+                return null;
+            }
         }),
         CredentialsProvider({
             // The name to display on the sign in form (e.g. "Sign in with...")
