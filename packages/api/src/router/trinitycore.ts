@@ -49,7 +49,18 @@ export const trinitycoreRouter = createTRPCRouter({
                 uptimeDiff,
             };
         }),
-    delete: publicProcedure.input(z.string()).mutation(({ ctx, input }) => {
-        return ctx.prisma.post.delete({ where: { id: input } });
-    }),
+    createAccount: publicProcedure
+        .input(
+            z.object({
+                username: z.string().min(1),
+                password: z.string().min(1),
+                email: z.string().min(1),
+            })
+        )
+        .mutation(async ({ input }) => {
+            const { username, password, email } = input;
+            const account = await executeCommand(`account create ${username} ${password} ${email}}`);
+
+            return account === `Account created: ${username}`
+        }),
 });
