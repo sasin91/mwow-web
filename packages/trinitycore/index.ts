@@ -26,7 +26,9 @@ export const executeCommand = async (command: string) => {
     });
 
     if (!response.ok) {
-        throw new Error(`TC Soap API failed with ${response.status} ${response.statusText}`);
+        const text = await response.text();
+        console.error(text);
+        throw new Error(`TC Soap API: Command ${command} failed with ${response.status} ${response.statusText}`);
     }
 
     const text = await response.text();
